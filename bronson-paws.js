@@ -1,8 +1,13 @@
 import OpenAI from "openai";
 
-const openai = new OpenAI({
-    apiKey: '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'
+import dotenv from 'dotenv';
+dotenv.config();
 
+import dotenv from 'dotenv';
+dotenv.config();
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
 });
 
 async function chatWithBronson(userMessage) {
