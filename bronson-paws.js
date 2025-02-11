@@ -50,6 +50,6 @@ app.post('/chat', async (req, res) => {
 
 // Start the server
 app.listen(port, () => {
-    console.log(`Bronson Paws chatbot running on port ${port}`);
+    console.log(`Server running on port ${port}`);
   });
-
+  
