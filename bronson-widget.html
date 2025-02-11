@@ -1,0 +1,34 @@
+<div id="bronson-chat-container" style="position: fixed; bottom: 20px; right: 20px; width: 300px; border: 2px solid #ccc; border-radius: 10px; padding: 15px; background-color: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+    <h3 style="margin: 0; color: #333;">Ask Bronson Paws!</h3>
+    <div id="chat-box" style="height: 200px; overflow-y: auto; border: 1px solid #eee; padding: 10px; margin-top: 10px; background: #fafafa;"></div>
+    <input type="text" id="user-input" placeholder="Type your question..." style="width: calc(100% - 20px); padding: 8px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc;">
+    <button onclick="sendMessage()" style="width: 100%; padding: 10px; margin-top: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Ask</button>
+  </div>
+  
+  <script>
+    async function sendMessage() {
+      const inputField = document.getElementById('user-input');
+      const message = inputField.value;
+      if (!message) return;
+  
+      const chatBox = document.getElementById('chat-box');
+      chatBox.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+  
+      inputField.value = '';
+  
+      try {
+        const response = await fetch('https://your-render-app-url.onrender.com/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message })
+        });
+  
+        const data = await response.json();
+        chatBox.innerHTML += `<div><strong>Bronson:</strong> ${data.reply}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (error) {
+        chatBox.innerHTML += `<div><strong>Error:</strong> Could not reach Bronson. Try again later.</div>`;
+      }
+    }
+  </script>
+  
